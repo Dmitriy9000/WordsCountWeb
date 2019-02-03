@@ -4,7 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.Infrastructure.Model
 {
-    public class WordSession
+    [Table("Words")]
+    public class SessionWord
     {
         [Key, Column(Order = 0)]
         public Guid SessionId { get; set; }
@@ -12,6 +13,6 @@ namespace Backend.Infrastructure.Model
         [Key, Column(Order = 1)]
         public string Word { get; set; }
 
-        public ulong Count { get; set; }
+        public long Count { get; set; }
     }
 }

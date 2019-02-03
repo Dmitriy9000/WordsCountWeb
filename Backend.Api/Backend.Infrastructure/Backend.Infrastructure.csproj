@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.3.5.0\lib\net40\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -48,19 +51,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Command\BaseCommand.cs" />
-    <Compile Include="Command\OpenSessionCommand.cs" />
-    <Compile Include="Model\WordSession.cs" />
+    <Compile Include="BaseRepository.cs" />
+    <Compile Include="ISessionRepository.cs" />
+    <Compile Include="IWordsRepository.cs" />
+    <Compile Include="Model\IWordsDataContextFactory.cs" />
+    <Compile Include="Model\WordsDataContextFactory.cs" />
+    <Compile Include="Model\SessionWord.cs" />
     <Compile Include="Model\WordsDataContext.cs" />
     <Compile Include="Model\Session.cs" />
+    <Compile Include="Modules\InfrastructureModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WordsRepository.cs" />
+    <Compile Include="SessionRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Query\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -19,6 +19,20 @@ namespace Backend.Api
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Routes.MapHttpRoute(
+                name: "WordCount",
+                routeTemplate: "api/words/{sessionId}/{word}",
+                defaults: new { sessionId = Guid.Empty, word = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "WordsCount",
+                routeTemplate: "api/words/{sessionId}",
+                defaults: new { sessionId = Guid.Empty }
+            );
+
+            
         }
     }
 }

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Autofac;
+using Autofac.Integration.WebApi;
+using Backend.Domain.Modules;
+using Backend.Infrastructure.Modules;
+using System.Reflection;
 using System.Web.Http;
-using System.Web.Routing;
 
 namespace Backend.Api
 {
@@ -12,6 +12,15 @@ namespace Backend.Api
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+
+            // Autofac setup
+            var builder = new ContainerBuilder();
+            var config = GlobalConfiguration.Configuration;
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+            builder.RegisterModule<InfrastructureModule>();
+            builder.RegisterModule<DomainModule>();
+            var container = builder.Build();
+            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
         }
     }
 }

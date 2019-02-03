@@ -1,39 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using Backend.Api.Models;
+using Backend.Domain;
+using Backend.Domain.Model;
+using System;
 using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace Backend.Api.Controllers
 {
     public class MetricsController : ApiController
     {
-        // GET: api/Metrics
-        public IEnumerable<string> Get()
+        private readonly IStatsService _statsService;
+
+        public MetricsController(IStatsService statsService)
         {
-            return new string[] { "value1", "value2" };
+            _statsService = statsService;
         }
 
         // GET: api/Metrics/5
-        public string Get(int id)
+        [ResponseType(typeof(ServerResponse<SessionStats>))]
+        public ServerResponse Get(Guid id)
         {
-            return "value";
-        }
-
-        // POST: api/Metrics
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT: api/Metrics/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Metrics/5
-        public void Delete(int id)
-        {
+            try
+            {
+                var stats = _statsService.GetSessionStats(id);
+                return ServerResponse<SessionStats>.Success(stats);
+            }
+            catch (Exception exception)
+            {
+                return ServerResponse.Fail(exception.Message);
+            }
         }
     }
 }
